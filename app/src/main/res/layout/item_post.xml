@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_margin="@dimen/space_8"
+                android:src="@drawable/ic_baseline_account_circle_24" />
+
+           <androidx.appcompat.widget.LinearLayoutCompat
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_vertical"
+               android:orientation="vertical">
+
+               <TextView
+                   android:id="@+id/tv_user_name"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:singleLine="true"
+                   android:gravity="center_vertical|start"
+                   android:textStyle="bold"
+                   android:textSize="@dimen/textSize_16"
+                   tools:text="User Name" />
+
+               <TextView
+                   android:id="@+id/tv_user_nike_name"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:singleLine="true"
+                   android:gravity="center_vertical|start"
+                   android:textStyle="normal"
+                   android:textSize="@dimen/textSize_14"
+                   tools:text="Hasan azimi" />
+
+           </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:scaleType="centerCrop"
+            tools:src="@drawable/android"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </LinearLayout>
+</layout>
