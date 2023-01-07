@@ -4,7 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.rubika.ApplicationLoader
+import com.example.rubika.R
 import com.example.rubika.databinding.ItemCommentBinding
 import com.example.rubika.model.Comment
 import ir.ha.dummy.utility.TDiffUtilCallback
@@ -73,6 +78,13 @@ class CommentAdapter(val callBack : CommentEvents) : RecyclerView.Adapter<Commen
             binding.tvUserName.text = cm.user.userName
             binding.tvCommentMessage.text = cm.message
             binding.tvPostReleasedDateTime.text = cm.releasedDate +" | " + cm.releasedTime
+
+            Glide.with(binding.ivUserCover.context).load(cm.user.coverImage)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.ic_baseline_downloading_24)
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // catch images
+                .transform(RoundedCorners(10))  // corner radius
+                .into(binding.ivUserCover)
         }
     }
 

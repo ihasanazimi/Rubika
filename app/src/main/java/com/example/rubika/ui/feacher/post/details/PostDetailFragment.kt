@@ -16,6 +16,8 @@ import com.example.rubika.repository.datasource.db.RoomDB
 import com.example.rubika.ui.feacher.post.PostVM
 import com.example.rubika.utility.base.BaseFragmentByVM
 import com.example.rubika.utility.customViews.ToggleImageView
+import ir.ha.dummy.utility.extentions.showToast
+import java.util.*
 
 class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>(), CommentAdapter.CommentEvents {
     override val layoutId: Int get() = R.layout.fragment_post_details
@@ -59,13 +61,38 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
                 })
 
-                if (viewModel.comments.value == null)
+//                if (viewModel.comments.value == null)
                 lifecycleScope.launchWhenCreated { viewModel.getSelectedPostComments(postId) }
+
+                binding.btnShareComment.setOnClickListener{
+                    if (binding.etCommentInput.text.toString().isNotEmpty()){
+                        val commentMessage = binding.etCommentInput.text.toString()
+                        val commentReleasedTime = Calendar.getInstance().time
+                        val commentReleasedDate = currentDate()
+                        val user = post.user
+                        val id = System.currentTimeMillis()+post.user.userId
+                        val cm = Comment(id.toInt(),user,commentMessage,commentReleasedDate,commentReleasedTime.hours.toString() +":" + commentReleasedTime.minutes.toString())
+                        adapter.addItem(cm)
+                        post.postComments.add(cm)
+                        RoomDB.database!!.postDao().updatePost(post)
+                        binding.etCommentInput.setText("")
+                        showToast(requireContext(),"Posted successfully :)")
+                    }else showToast(requireContext(),"comments inputs not found ..")
+                }
 
             }
 
         }
 
+    }
+
+    private fun currentDate(): String {
+        val c = Calendar.getInstance()
+        val day = c[Calendar.DAY_OF_MONTH]
+        val month = c[Calendar.MONTH]
+        val year = c[Calendar.YEAR]
+        val date = day.toString() + "/" + (month + 1) + "/" + year
+        return date
     }
 
     private fun setupRecyclerView() {
@@ -98,6 +125,10 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
         super.registerObservers()
         viewModel.comments.observe(viewLifecycleOwner){
             adapter.setItemByDiffUtil(it)
+        }
+
+        viewModel.isDone.observe(viewLifecycleOwner){
+            binding.progressBar.visibility = if (it) View.GONE else View.VISIBLE
         }
     }
 

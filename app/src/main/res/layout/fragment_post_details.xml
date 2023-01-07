@@ -237,6 +237,7 @@
                                 android:hint="@string/your_comment_hint"
                                 android:maxHeight="100dp"
                                 android:minHeight="42dp"
+                                android:textColorHint="@color/gray"
                                 android:gravity="start|center_vertical"
                                 android:paddingHorizontal="@dimen/space_16"
                                 android:layout_marginEnd="52dp"
@@ -248,10 +249,11 @@
 
                         <ImageView
                             android:id="@+id/btn_share_comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="42dp"
+                            android:padding="12dp"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical|end"
-                            android:layout_marginHorizontal="@dimen/space_16"
+                            android:layout_marginHorizontal="@dimen/space_8"
                             android:src="@drawable/ic_baseline_send_24" />
 
                     </FrameLayout>
@@ -269,6 +271,19 @@
             </RelativeLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

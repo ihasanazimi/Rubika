@@ -1,6 +1,7 @@
 package com.example.rubika.repository.datasource.db.post_dao
 
 import androidx.room.*
+import com.example.rubika.model.Comment
 import com.example.rubika.model.Post
 
 @Dao
@@ -23,5 +24,6 @@ interface PostDao {
 
     @Query("select * from Post where id = :postId;")
     fun getPost( postId : Int) : List<Post>
+
 
 }
