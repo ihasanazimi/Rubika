@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/iconSize_24"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_2"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_user_cover"
+                android:layout_width="@dimen/iconSize_24"
+                android:layout_height="@dimen/iconSize_24"
+                android:src="@drawable/ic_baseline_account_circle_24" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|start"
+                android:paddingHorizontal="@dimen/space_8"
+                android:singleLine="true"
+                android:textSize="@dimen/textSize_12"
+                android:textStyle="bold"
+                tools:text="User Name" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <TextView
+            android:id="@+id/tv_comment_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_8"
+            android:background="@drawable/comment_shape"
+            android:padding="12dp"
+            android:paddingEnd="@dimen/space_32"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            tools:text="@string/dummy_comment" />
+
+        <TextView
+            android:id="@+id/tv_post_released_date_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="-4dp"
+            android:gravity="center_vertical|start"
+            android:paddingHorizontal="@dimen/space_8"
+            android:singleLine="true"
+            android:textSize="@dimen/textSize_12"
+            android:textStyle="normal"
+            tools:text="3:50 PM" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

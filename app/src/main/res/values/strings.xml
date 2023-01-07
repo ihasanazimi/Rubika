@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Rubika</string>
+    <string name="not_found_item">not found other item..!</string>
+    <string name="dummy_caption">Test the Message · Click Email > Email Campaigns. · Click the Campaigns tab. · In the Actions column for the appropriate campaign, click Manage Test the Message · Click Email > Email Campaigns. · Click the Campaigns tab. · In the Actions column for the appropriate campaign, click Manage Test the Message · Click Email > Email Campaigns. · Click the Campaigns tab. · In the Actions column for the appropriate campaign, click Manage</string>
+    <string name="dummy_comment">My opinion for this post is that this post really immersed me in the world you created in your mind and it was really a very beautiful post.</string>
+    <string name="your_comment_hint">your comment...</string>
+    <string name="comments_title">Comments :</string>
+    <string name="caption_title">Caption :</string>
 </resources>

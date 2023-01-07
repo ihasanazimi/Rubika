@@ -2,11 +2,10 @@ package com.example.rubika.utility.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
 
-    open val composable = CompositeDisposable()
+//    open val composable = CompositeDisposable()
     open val errorLiveData = MutableLiveData<ArrayList<String>>()
     open var progressLiveData = MutableLiveData<Boolean>(false)
 
@@ -18,7 +17,7 @@ abstract class BaseViewModel : ViewModel() {
 
 
     override fun onCleared() {
-        composable.clear()
+//        composable.clear()
         clearErrorLiveData()
         super.onCleared()
     }

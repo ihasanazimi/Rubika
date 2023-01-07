@@ -1,4 +1,4 @@
-package ir.ha.dummy.utility.util
+package com.example.rubika.utility.util
 
 object ValidatorUtils {
     //check text is mobile number

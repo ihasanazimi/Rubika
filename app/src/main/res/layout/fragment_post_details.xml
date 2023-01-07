@@ -1,22 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-<androidx.appcompat.widget.LinearLayoutCompat
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.rubika.model.Post" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:orientation="vertical">
 
+                <FrameLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_user_cover"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:layout_margin="@dimen/space_8"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_baseline_account_circle_24" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_user_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|start"
+                                android:singleLine="true"
+                                android:text="@{data.user.userName}"
+                                android:textSize="@dimen/textSize_14"
+                                android:textStyle="bold"
+                                tools:text="User Name" />
+
+                            <TextView
+                                android:id="@+id/tv_user_nike_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical|start"
+                                android:singleLine="true"
+                                android:text="@{data.user.nikeName}"
+                                android:textSize="@dimen/textSize_12"
+                                android:textStyle="normal"
+                                tools:text="Hasan azimi" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <TextView
+                        android:id="@+id/tv_releasedDateAndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        android:drawablePadding="@dimen/space_8"
+                        android:gravity="end|center_vertical"
+                        android:text="@{data.dateAndTime()}"
+                        android:textSize="@dimen/textSize_10"
+                        app:drawableEndCompat="@drawable/ic_baseline_access_time_24"
+                        tools:text="1 day ago" />
+
+                </FrameLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_post_cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/android" />
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/space_16">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/likesContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="horizontal">
+
+                    <com.example.rubika.utility.customViews.ToggleImageView
+                        android:id="@+id/btn_like"
+                        android:layout_width="@dimen/iconSize_24"
+                        android:layout_height="@dimen/iconSize_24"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        app:src_checked="@drawable/ic_like_24"
+                        app:src_unchecked="@drawable/ic_like_border_24" />
+
+                    <TextView
+                        android:id="@+id/tv_likes_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@{data.likeCount()}"
+                        android:textSize="@dimen/textSize_12"
+                        android:textStyle="bold"
+                        tools:text="256 likes" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/commentsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_8"
+                    android:layout_toEndOf="@id/likesContainer"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btn_comment"
+                        android:layout_width="@dimen/iconSize_24"
+                        android:layout_height="@dimen/iconSize_24"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        android:padding="2dp"
+                        android:src="@drawable/ic_baseline_comment_24" />
+
+                    <TextView
+                        android:id="@+id/tv_comments_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@{data.commentsCount()}"
+                        android:textSize="@dimen/textSize_12"
+                        android:textStyle="bold"
+                        tools:text="7 comment" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/captionContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/commentsContainer"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        android:layout_toEndOf="@id/commentsContainer"
+                        android:paddingHorizontal="@dimen/space_4"
+                        android:paddingVertical="@dimen/space_8"
+                        android:text="@string/caption_title"
+                        android:textSize="@dimen/textSize_12"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_caption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/commentsContainer"
+                        android:justificationMode="inter_word"
+                        android:lineSpacingExtra="@dimen/space_2"
+                        android:maxLines="3"
+                        android:paddingHorizontal="@dimen/iconSize_24"
+                        android:text="@{data.caption}"
+                        android:textSize="@dimen/textSize_12"
+                        tools:text="@string/dummy_caption"
+                        tools:targetApi="o" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/captionContainer"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        android:layout_toEndOf="@id/commentsContainer"
+                        android:paddingHorizontal="@dimen/space_4"
+                        android:paddingVertical="@dimen/space_8"
+                        android:text="@string/comments_title"
+                        android:textSize="@dimen/textSize_12"
+                        android:textStyle="bold" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/space_16"
+                        android:layout_marginBottom="@dimen/space_16"
+                        android:background="@drawable/strok_input"
+                        android:orientation="horizontal">
+
+                        <androidx.core.widget.NestedScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/et_commentInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/transparent"
+                                android:hint="@string/your_comment_hint"
+                                android:maxHeight="100dp"
+                                android:minHeight="42dp"
+                                android:gravity="start|center_vertical"
+                                android:paddingHorizontal="@dimen/space_16"
+                                android:layout_marginEnd="52dp"
+                                android:paddingVertical="@dimen/space_8"
+                                android:scrollbars="vertical"
+                                android:textSize="@dimen/textSize_12"
+                                android:inputType="textMultiLine" />
+                        </androidx.core.widget.NestedScrollView>
+
+                        <ImageView
+                            android:id="@+id/btn_share_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|end"
+                            android:layout_marginHorizontal="@dimen/space_16"
+                            android:src="@drawable/ic_baseline_send_24" />
+
+                    </FrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_comment" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

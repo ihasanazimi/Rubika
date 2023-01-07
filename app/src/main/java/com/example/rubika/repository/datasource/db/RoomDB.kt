@@ -1,14 +1,25 @@
-package com.example.rubika.repo
+package com.example.rubika.repository.datasource.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.rubika.repository.datasource.db.post_dao.PostDao
+import com.example.rubika.model.Comment
 import com.example.rubika.model.Post
+import com.example.rubika.model.User
+import com.example.rubika.repository.datasource.db.converters.*
 
+@Database(entities = [Post::class,User::class,Comment::class ], version = 3)
 
-@Database(
-    entities = [Post::class], version = 3, exportSchema = false)
+@TypeConverters(
+    PostsConverters::class,
+    CommentConverters::class,
+    UserConverter::class,
+    CommentListConverter::class,
+    IntegerConverter::class
+)
 
 
 abstract class RoomDB : RoomDatabase() {
