@@ -16,6 +16,7 @@ import com.example.rubika.repository.datasource.db.RoomDB
 import com.example.rubika.ui.feacher.post.PostVM
 import com.example.rubika.utility.base.BaseFragmentByVM
 import com.example.rubika.utility.customViews.ToggleImageView
+import ir.ha.dummy.utility.extentions.hide
 import ir.ha.dummy.utility.extentions.showToast
 import java.util.*
 
@@ -134,6 +135,7 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
         viewModel.comments.observe(viewLifecycleOwner){
             adapter.setItemByDiffUtil(it)
+            if (it.isEmpty()) binding.tvShowMoreComment.hide()
         }
 
         viewModel.isDone.observe(viewLifecycleOwner){
