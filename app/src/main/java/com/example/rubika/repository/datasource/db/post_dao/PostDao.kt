@@ -20,10 +20,12 @@ interface PostDao {
     fun allPosts() : List<Post>
 
     @Query("select * from Post limit 10 OFFSET :page*10;")
-    fun allPosts(page : Int) : List<Post>
+    fun allPostsPaging(page : Int) : List<Post>
 
     @Query("select * from Post where id = :postId;")
     fun getPost( postId : Int) : List<Post>
 
+    @Query("select postComments from Post where id = :postId limit 10 OFFSET :page*10;")
+    fun getPostCommentsPaging( postId : Int , page : Int ) : List<Comment>
 
 }

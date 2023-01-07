@@ -266,6 +266,15 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_comment" />
 
+                    <TextView
+                        android:id="@+id/tv_showMoreComment"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/purple_500"
+                        android:text="( show more )"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"/>
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </RelativeLayout>

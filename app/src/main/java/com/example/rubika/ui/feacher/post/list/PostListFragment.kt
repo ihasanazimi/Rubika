@@ -27,7 +27,8 @@ class PostListFragment : BaseFragmentByVM<FragmentPostsBinding,PostVM>(), PostAd
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+
+        setupCommentsRecyclerView()
 
         // initial request
         if (viewModel.posts.value == null) lifecycleScope.launchWhenCreated { viewModel.getFirstPageOfPost() }
@@ -36,7 +37,7 @@ class PostListFragment : BaseFragmentByVM<FragmentPostsBinding,PostVM>(), PostAd
         endlessListener = object : EndlessRecyclerViewScrollListener(binding.recyclerView.layoutManager!!) {
                 override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                     viewModel.postsPageNumber++
-                    lifecycleScope.launchWhenCreated { viewModel.getPost() }
+                    lifecycleScope.launchWhenCreated { viewModel.getPostPaging() }
                 }
             }
         binding.recyclerView.addOnScrollListener(endlessListener)
@@ -60,11 +61,11 @@ class PostListFragment : BaseFragmentByVM<FragmentPostsBinding,PostVM>(), PostAd
 
     }
 
-    private fun setupRecyclerView() {
+    private fun setupCommentsRecyclerView() {
         adapter = PostAdapter(this)
-        binding.recyclerView.adapter = adapter
         val decoration = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
         binding.recyclerView.addItemDecoration(decoration)
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onPostClick(post: Post) {
@@ -74,7 +75,7 @@ class PostListFragment : BaseFragmentByVM<FragmentPostsBinding,PostVM>(), PostAd
     }
 
     override fun onUpdatePost(post: Post) {
-        viewModel.updatePost(post)
+        viewModel.updatePostOnLiveData(post)
         adapter.updatedItem(post)
     }
 

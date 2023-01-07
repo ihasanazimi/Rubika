@@ -15,12 +15,10 @@ import com.example.rubika.repository.datasource.db.converters.*
 
 @TypeConverters(
     PostsConverters::class,
-    CommentConverters::class,
     UserConverter::class,
     CommentListConverter::class,
     IntegerConverter::class
 )
-
 
 abstract class RoomDB : RoomDatabase() {
 

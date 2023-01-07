@@ -35,7 +35,7 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
         requireArguments().let {
 
             val postId = it.getInt(POST_ID)
-            val post = viewModel.getPost(postId)
+            val post = viewModel.getPostOnLiveData(postId)
 
             if (post != null) {
 
@@ -61,10 +61,10 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
                 })
 
-//                if (viewModel.comments.value == null)
                 lifecycleScope.launchWhenCreated { viewModel.getSelectedPostComments(postId) }
 
                 binding.btnShareComment.setOnClickListener{
+
                     if (binding.etCommentInput.text.toString().isNotEmpty()){
                         val commentMessage = binding.etCommentInput.text.toString()
                         val commentReleasedTime = Calendar.getInstance().time
@@ -77,7 +77,15 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
                         RoomDB.database!!.postDao().updatePost(post)
                         binding.etCommentInput.setText("")
                         showToast(requireContext(),"Posted successfully :)")
-                    }else showToast(requireContext(),"comments inputs not found ..")
+                    }else { binding.etCommentInput.error = "comments inputs not found .." }
+
+                }
+
+
+                binding.tvShowMoreComment.setOnClickListener {
+                   lifecycleScope.launchWhenCreated {
+                       viewModel.getSelectedPostCommentsPaging(postId)
+                   }
                 }
 
             }
@@ -123,12 +131,14 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
     override fun registerObservers() {
         super.registerObservers()
+
         viewModel.comments.observe(viewLifecycleOwner){
             adapter.setItemByDiffUtil(it)
         }
 
         viewModel.isDone.observe(viewLifecycleOwner){
             binding.progressBar.visibility = if (it) View.GONE else View.VISIBLE
+            binding.tvShowMoreComment.visibility = if (!it) View.GONE else View.VISIBLE
         }
     }
 
@@ -138,7 +148,7 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
     private fun updateLikeCount(post: Post) {
         RoomDB.database!!.postDao().updatePost(post)
-        viewModel.updatePost(post)
+        viewModel.updatePostOnLiveData(post)
         binding.tvLikesCount.text = post.likeCount()
     }
 

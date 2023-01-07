@@ -16,8 +16,17 @@ class CommentListConverter {
 
     @TypeConverter
     fun fromJsonToCommentList(jsonString: String): ArrayList<Comment> {
-        Log.i("hsn_commentlist", "fromJsonToCommentList: $jsonString")
         return Gson().fromJson(jsonString , Array<Comment>::class.java).toCollection(ArrayList<Comment>())
+    }
+
+    @TypeConverter
+    fun fromCommentToJson(comment: Comment): String {
+        return Gson().toJson(comment)
+    }
+
+    @TypeConverter
+    fun fromJsonToComment(stringComment: String): Comment {
+        return Gson().fromJson(stringComment , Comment::class.java)
     }
 
 

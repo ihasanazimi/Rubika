@@ -24,11 +24,16 @@ class PostVM : BaseViewModel() {
     val isDone = MutableLiveData<Boolean>(true)
 
 
-    suspend fun getPost() {
+
+
+
+
+
+    suspend fun getPostPaging() {
         isDone.value = false
         delay(1200)
         viewModelScope.launch {
-            val posts = RoomDB.database!!.postDao().allPosts(postsPageNumber) as ArrayList<Post>
+            val posts = RoomDB.database!!.postDao().allPostsPaging(postsPageNumber) as ArrayList<Post>
             if (posts.isNotEmpty()) {
                 val temps = _posts.value?.toMutableList() ?: arrayListOf()
                 temps.addAll(posts)
@@ -50,6 +55,11 @@ class PostVM : BaseViewModel() {
     }
 
 
+
+
+
+
+
     suspend fun getSelectedPostComments(postId : Int) {
         isDone.value = false
         delay(1200)
@@ -61,8 +71,27 @@ class PostVM : BaseViewModel() {
         isDone.value = true
     }
 
+    suspend fun getSelectedPostCommentsPaging(postId : Int) {
+        isDone.value = false
+        delay(1200)
+        viewModelScope.launch {
+            commentPageNumber++
+            val comments = RoomDB.database!!.postDao().getPostCommentsPaging(postId,commentPageNumber)
+            if (comments.isNotEmpty()){
+                val temps = _comments.value?.toMutableList()
+                temps?.addAll(comments)
+                _comments.value = temps as ArrayList<Comment>?
+            } else commentPageNumber--
+        }
+        isDone.value = true
+    }
 
-    fun updatePost(updatedPost: Post){
+
+
+
+
+
+    fun updatePostOnLiveData(updatedPost: Post){
         val temps = _posts.value?.toMutableList()
         val targetPost = temps?.find { it.id == updatedPost.id }
         val index = temps?.indexOf(targetPost)
@@ -71,7 +100,7 @@ class PostVM : BaseViewModel() {
         isDone.value = true
     }
 
-    fun getPost(postId: Int) : Post{
+    fun getPostOnLiveData(postId: Int) : Post{
         val temps = _posts.value?.toMutableList()
         val targetPost = temps?.find { it.id == postId }
         return targetPost!!
