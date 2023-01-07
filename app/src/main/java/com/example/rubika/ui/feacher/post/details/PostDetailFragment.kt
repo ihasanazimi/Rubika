@@ -76,8 +76,9 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
                         adapter.addItem(cm)
                         post.postComments.add(cm)
                         RoomDB.database!!.postDao().updatePost(post)
-                        binding.etCommentInput.setText("")
                         showToast(requireContext(),"Posted successfully :)")
+                        binding.etCommentInput.setText("")
+                        binding.tvCommentsCount.text = post.commentsCount()
                     }else { binding.etCommentInput.error = "comments inputs not found .." }
 
                 }
