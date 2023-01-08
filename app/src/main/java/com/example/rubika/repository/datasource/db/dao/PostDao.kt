@@ -1,4 +1,4 @@
-package com.example.rubika.repository.datasource.db.post_dao
+package com.example.rubika.repository.datasource.db.dao
 
 import androidx.room.*
 import com.example.rubika.model.Comment

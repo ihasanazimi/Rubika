@@ -5,13 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.rubika.repository.datasource.db.post_dao.PostDao
+import com.example.rubika.repository.datasource.db.dao.PostDao
 import com.example.rubika.model.Comment
 import com.example.rubika.model.Post
 import com.example.rubika.model.User
 import com.example.rubika.repository.datasource.db.converters.*
 
-@Database(entities = [Post::class,User::class,Comment::class ], version = 4)
+@Database(entities = [Post::class,User::class,Comment::class ], version =1)
 
 @TypeConverters(
     PostsConverters::class,
