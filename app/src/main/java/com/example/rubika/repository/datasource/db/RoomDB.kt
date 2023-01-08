@@ -11,7 +11,7 @@ import com.example.rubika.model.Post
 import com.example.rubika.model.User
 import com.example.rubika.repository.datasource.db.converters.*
 
-@Database(entities = [Post::class,User::class,Comment::class ], version = 3)
+@Database(entities = [Post::class,User::class,Comment::class ], version = 4)
 
 @TypeConverters(
     PostsConverters::class,

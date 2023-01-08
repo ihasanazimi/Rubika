@@ -10,10 +10,9 @@ import com.example.rubika.utility.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PostVM : BaseViewModel() {
+class SharedPostVM : BaseViewModel() {
 
     var postsPageNumber = 0
-    var commentPageNumber = 0
 
     private val _posts = MutableLiveData<ArrayList<Post>>()
     val posts: LiveData<ArrayList<Post>> = _posts
@@ -22,10 +21,7 @@ class PostVM : BaseViewModel() {
     val comments: LiveData<ArrayList<Comment>> = _comments
 
     val isDone = MutableLiveData<Boolean>(true)
-
-
-
-
+    val hideShowMoreBtn = MutableLiveData<Boolean>(true)
 
 
 
@@ -39,8 +35,8 @@ class PostVM : BaseViewModel() {
                 temps.addAll(posts)
                 _posts.value = temps as ArrayList<Post> ?: arrayListOf()
             } else postsPageNumber--
-            isDone.value = true
         }
+        isDone.value = true
     }
 
 
@@ -66,7 +62,16 @@ class PostVM : BaseViewModel() {
         viewModelScope.launch {
             val posts = RoomDB.database!!.postDao().getPost(postId)
             val targetPost = posts.find { it.id == postId }
-            _comments.value = targetPost?.postComments?: arrayListOf()
+            if (targetPost != null && targetPost.postComments.isNotEmpty()) {
+                val temps = arrayListOf<Comment>()
+                (0..9).forEach {
+                    if (it < targetPost.postComments.size) temps.add(targetPost.postComments[it])
+                    else return@forEach
+                }
+                _comments.value = temps
+                hideShowMoreBtn.value = false
+                if (temps.size == targetPost.postComments.size) hideShowMoreBtn.value = true
+            }
         }
         isDone.value = true
     }
@@ -75,13 +80,23 @@ class PostVM : BaseViewModel() {
         isDone.value = false
         delay(1200)
         viewModelScope.launch {
-            commentPageNumber++
-            val comments = RoomDB.database!!.postDao().getPostCommentsPaging(postId,commentPageNumber)
-            if (comments.isNotEmpty()){
+            val posts = RoomDB.database!!.postDao().getPost(postId)
+            val targetPost = posts.find { it.id == postId }
+            if (targetPost != null && targetPost.postComments.isNotEmpty()) {
+                val allComments = targetPost.postComments
                 val temps = _comments.value?.toMutableList()
-                temps?.addAll(comments)
+                val start = temps?.size!!
+                val nextPage = start + 10
+                (start..nextPage).forEach{
+                    if (it < allComments.size){
+                        if (allComments[it] != null) temps.add(allComments[it])
+                        else return@forEach
+                    }
+                }
                 _comments.value = temps as ArrayList<Comment>?
-            } else commentPageNumber--
+                hideShowMoreBtn.value = false
+                if (temps.size == allComments.size) hideShowMoreBtn.value = true
+            }
         }
         isDone.value = true
     }
@@ -114,8 +129,9 @@ class PostVM : BaseViewModel() {
         _comments.postValue(data)
     }
 
-    fun canceledRequest(){
+    fun resetStates(){
         isDone.value = true
+        hideShowMoreBtn.value = true
     }
 
 }

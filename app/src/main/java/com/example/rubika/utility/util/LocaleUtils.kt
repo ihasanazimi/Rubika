@@ -1,4 +1,4 @@
-package ir.ha.dummy.utility.util
+package com.example.rubika.utility.util
 
 import android.content.Context
 import java.util.*

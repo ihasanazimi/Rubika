@@ -57,17 +57,8 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.6.1'
 
-    // Retrofit and Converts Factories
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0' // okHttp
-    implementation 'com.squareup.retrofit2:converter-gson:2.8.1' // GSON Converter
-
     // GSON
     implementation 'com.google.code.gson:gson:2.10.1'
-
-//    // RxJava  // RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 
     // Kotlin Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
@@ -78,26 +69,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$arch_component_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_component_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_component_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$arch_component_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$arch_component_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-core:$arch_component_version"
-    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-
-
-    // KOiN
-    def koin_version= "3.2.0-beta-1"
-    // Koin main features for Android
-    implementation "io.insert-koin:koin-android:$koin_version"
-    // No more koin-android-viewModel, koin-android-scope, koin-android-fragment
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
-
-    //Event Bus
-    implementation("org.greenrobot:eventbus:3.3.1")
-
 
     // room dataBase
     def room_version = "2.4.3"
@@ -119,9 +94,5 @@ dependencies {
 
     // Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
-    implementation("com.github.hadilq:live-event:1.2.3")
-
-    implementation("com.squareup.okhttp3:logging-interceptor:4.8.1")
 
 }

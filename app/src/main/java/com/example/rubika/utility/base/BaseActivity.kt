@@ -7,7 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import ir.ha.dummy.utility.localizedContext
+import com.example.rubika.utility.util.localizedContext
 
 abstract class BaseActivity<V : ViewDataBinding> : AppCompatActivity(), BaseView {
 

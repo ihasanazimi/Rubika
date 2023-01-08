@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rubika.R
 import com.example.rubika.databinding.FragmentPostsBinding
 import com.example.rubika.model.Post
-import com.example.rubika.ui.feacher.post.PostVM
+import com.example.rubika.ui.feacher.post.SharedPostVM
 import com.example.rubika.ui.feacher.post.details.PostDetailFragment
 import com.example.rubika.utility.EndlessRecyclerViewScrollListener
-import com.example.rubika.utility.base.BaseFragmentByVM
+import com.example.rubika.utility.base.BaseFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
-class PostListFragment : BaseFragmentByVM<FragmentPostsBinding,PostVM>(), PostAdapter.PostEvents {
+class PostListFragment : BaseFragment<FragmentPostsBinding,SharedPostVM>(), PostAdapter.PostEvents {
     override val layoutId: Int get() = R.layout.fragment_posts
-    override val viewModel: PostVM get() = ViewModelProvider(requireActivity())[PostVM::class.java]
+    override val viewModel: SharedPostVM get() = ViewModelProvider(requireActivity())[SharedPostVM::class.java]
 
     private lateinit var adapter : PostAdapter
     private lateinit var endlessListener: EndlessRecyclerViewScrollListener

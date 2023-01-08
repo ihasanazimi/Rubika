@@ -18,9 +18,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         changeStatusBarColor(window,R.color.gray)
-
+        // create posts nad save they`s on DB
         val items = RoomDB.database!!.postDao().allPosts()
         if (items.isEmpty()) lifecycleScope.launchWhenCreated { FakeData.generateFakePost() }
     }

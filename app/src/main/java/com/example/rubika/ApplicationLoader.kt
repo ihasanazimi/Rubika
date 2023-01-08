@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.os.Handler
 import com.example.rubika.repository.datasource.db.RoomDB
+import com.example.rubika.utility.util.localizedContext
+import ir.ha.dummy.utility.util.ThemeUtils
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 class ApplicationLoader : Application() {
@@ -18,8 +20,10 @@ class ApplicationLoader : Application() {
         context = this.applicationContext
         applicationHandler = Handler(this.mainLooper)
 
-        /** initialize fresco */
+        // singleton db instance
         RoomDB.getDataBase(this.applicationContext)
+        localizedContext(this)
+        ThemeUtils.changeTheme(false)
 
     }
 

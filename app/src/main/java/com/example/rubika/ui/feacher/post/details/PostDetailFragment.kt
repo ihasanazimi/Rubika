@@ -13,16 +13,16 @@ import com.example.rubika.databinding.FragmentPostDetailsBinding
 import com.example.rubika.model.Comment
 import com.example.rubika.model.Post
 import com.example.rubika.repository.datasource.db.RoomDB
-import com.example.rubika.ui.feacher.post.PostVM
-import com.example.rubika.utility.base.BaseFragmentByVM
+import com.example.rubika.ui.feacher.post.SharedPostVM
+import com.example.rubika.utility.base.BaseFragment
 import com.example.rubika.utility.customViews.ToggleImageView
 import ir.ha.dummy.utility.extentions.hide
 import ir.ha.dummy.utility.extentions.showToast
 import java.util.*
 
-class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>(), CommentAdapter.CommentEvents {
+class PostDetailFragment : BaseFragment<FragmentPostDetailsBinding,SharedPostVM>(), CommentAdapter.CommentEvents {
     override val layoutId: Int get() = R.layout.fragment_post_details
-    override val viewModel: PostVM get() = ViewModelProvider(requireActivity())[PostVM::class.java]
+    override val viewModel: SharedPostVM get() = ViewModelProvider(requireActivity())[SharedPostVM::class.java]
 
     companion object{
         const val POST_ID = "POST_ID"
@@ -141,8 +141,14 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
         viewModel.isDone.observe(viewLifecycleOwner){
             binding.progressBar.visibility = if (it) View.GONE else View.VISIBLE
-            binding.tvShowMoreComment.visibility = if (!it) View.GONE else View.VISIBLE
         }
+
+        viewModel.hideShowMoreBtn.observe(viewLifecycleOwner){
+            binding.tvShowMoreComment.visibility = if (it) View.INVISIBLE else View.VISIBLE
+        }
+
+
+
     }
 
     override fun onCommentClick(cm: Comment) {
@@ -157,7 +163,7 @@ class PostDetailFragment : BaseFragmentByVM<FragmentPostDetailsBinding,PostVM>()
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.canceledRequest()
+        viewModel.resetStates()
         viewModel.clearCommentsLiveData()
     }
 

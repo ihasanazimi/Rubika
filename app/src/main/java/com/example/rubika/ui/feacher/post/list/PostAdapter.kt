@@ -15,7 +15,7 @@ import com.example.rubika.model.Post
 import com.example.rubika.utility.customViews.ToggleImageView
 import ir.ha.dummy.utility.TDiffUtilCallback
 
-class PostAdapter(val callBack : PostEvents) : RecyclerView.Adapter<PostAdapter.VH>() {
+class PostAdapter(val callBack : PostEvents) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
 
     private var items = arrayListOf<Post>()
 
@@ -24,11 +24,11 @@ class PostAdapter(val callBack : PostEvents) : RecyclerView.Adapter<PostAdapter.
         fun onUpdatePost(post : Post)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        return VH(ItemPostBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        return PostViewHolder(ItemPostBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    override fun onBindViewHolder(holder: VH, @SuppressLint("RecyclerView") position: Int) {
+    override fun onBindViewHolder(holder: PostViewHolder, @SuppressLint("RecyclerView") position: Int) {
 
         holder.bind(items[position])
 
@@ -101,7 +101,7 @@ class PostAdapter(val callBack : PostEvents) : RecyclerView.Adapter<PostAdapter.
 
 
 
-    inner class VH(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(post : Post){
             binding.data = post
