@@ -37,7 +37,7 @@ https://user-images.githubusercontent.com/65872053/212751307-fc659888-99bc-41e9-
 
 ## Permissions
 
-On Android versions prior to Android 6.0, EbcomApp requires the following permissions:
+On Android versions prior to Android 6.0, Rubika.App requires the following permissions:
 
 - Full Network Access.
 - View Network Connections.
